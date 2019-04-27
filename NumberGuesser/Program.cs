@@ -10,67 +10,51 @@ namespace NumberGuesser
         static void Main(string[] args)
         {
             ShowAppInfo();
-
-            
             GreetUser();
 
-            //init the correct number - create the var and set a number as the default
-            //int goalNum = 7;
-            // init the guess variable
-
-            //goal number is a new Random obect
             while (true)
             {
-
+                //init random object
                 Random random = new Random();
 
+                //goal number is a new Random obect
                 int goalNum = random.Next(1, 20);
+                //guess will be parsed from user entry string, init at zero
+                int guess = 0;            
 
-                int guess = 0;
-
-            
-
+                //Prompt user for entry
                 Console.WriteLine("\nGuess a number between 1 and 20 - \"Q\" to quit game: ");
 
-
+                //while 
                 while (guess != goalNum)
                 {
                     string playerGuess = Console.ReadLine();
 
-
                     if (playerGuess.ToLower().StartsWith("Q".ToLower()))
                     {
+                        //breaks from the game if user enters quit sentinel
                         break;
                     }
 
                     else if (!int.TryParse(playerGuess, out guess))
                     {
                         //red warning message if user enters non integer or non-"Q"
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Incorrect! Please only enter integers");
-                        Console.ResetColor();
+                        PrintAlertMessage(ConsoleColor.Red, "Incorrect! Please try again");
 
                     }
 
-
-
-
                     else if (guess != goalNum)
                     {
-                        //red warning message if guess int != goalnum
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Incorrect! Please try again");
-                        Console.ResetColor();
+                        //red warning message if user enters wrong integer 
+                        PrintAlertMessage(ConsoleColor.Red, "Incorrect! Please try again");
                     }
                 }
 
                 //once the while loop for guess != goalNum 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Correct! Well done friend");
-                Console.ResetColor();
+                PrintAlertMessage(ConsoleColor.Green, "Correct! Well done friend");
 
                 //now, ask the user if they would like to play again
-                Console.WriteLine("Would you like to play again?\n");
+                Console.WriteLine("\n\t\tWould you like to play again?\n");
                 string replayResponse = Console.ReadLine();
 
                 if (replayResponse.ToLower().Contains("Yes".ToLower())
@@ -105,13 +89,7 @@ namespace NumberGuesser
             String appAuthor = "Mike C";
 
 
-            // change text color
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            Console.WriteLine("Application: {0}:\n Version {1} \n Author: {2}\n", appName, appVers, appAuthor);
-
-            // reset the text color after app info printed
-            Console.ResetColor();
+            PrintAlertMessage(ConsoleColor.DarkYellow, (appName + "\n" +appVers + " \nAuthor: " + appAuthor));
 
 
         }//end show app info ftn
@@ -125,9 +103,25 @@ namespace NumberGuesser
 
             string playerName = Console.ReadLine();
 
-            Console.WriteLine("\nHello {0}, let's get to it!", playerName);
+            PrintAlertMessage(ConsoleColor.Green, "Hello " +playerName +", let's guess a number!\n");
+
 
         }//end greetuser ftn
+
+        static void PrintAlertMessage(ConsoleColor alertColor, string message)
+        {
+            //**primary function used to print in a certain consolecolor (p1) and the string message to print (p2)
+            //parameter field inits
+            Console.ForegroundColor = alertColor;
+            String messageToPrint = message;
+
+            //write message to the program
+            Console.WriteLine(messageToPrint);
+            //resets foreground color
+            Console.ResetColor();
+        }
+
+
 
     }//end program
 

@@ -98,14 +98,14 @@ namespace NumberGuesser
                 
 
 
-            }//end game continuation loop
-
         }//end main
+
+    }//end program
 
 
      
 
-}//end program
+}//end namespace
 
 static void ShowAppInfo()
 {
@@ -127,4 +127,4 @@ static void ShowAppInfo()
 }
 
 
-//ew}//end namespace 
+ 

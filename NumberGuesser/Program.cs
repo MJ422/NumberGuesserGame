@@ -9,15 +9,10 @@ namespace NumberGuesser
         //entry point for our application
         static void Main(string[] args)
         {
-           
+            ShowAppInfo();
 
-            Console.WriteLine("\tHello and Welcome to NumberGuesser! \n\tThe most fun game you can play!\n\n\n");
-            Console.WriteLine("What is your name?");
-
-            string playerName = Console.ReadLine();
-
-            Console.WriteLine("\nHello {0}, let's get to it!", playerName);
-
+            
+            GreetUser();
 
             //init the correct number - create the var and set a number as the default
             //int goalNum = 7;
@@ -100,31 +95,48 @@ namespace NumberGuesser
 
         }//end main
 
+
+
+        static void ShowAppInfo()
+        {
+            //app vars init
+            String appName = "NumberGuesser"; //important to use double quotes
+            String appVers = "1.0.0";
+            String appAuthor = "Mike C";
+
+
+            // change text color
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.WriteLine("Application: {0}:\n Version {1} \n Author: {2}\n", appName, appVers, appAuthor);
+
+            // reset the text color after app info printed
+            Console.ResetColor();
+
+
+        }//end show app info ftn
+
+
+
+        static void GreetUser()
+        {
+            Console.WriteLine("\tHello and Welcome to NumberGuesser! \n\tThe most fun game you can play!\n\n\n");
+            Console.WriteLine("What is your name?");
+
+            string playerName = Console.ReadLine();
+
+            Console.WriteLine("\nHello {0}, let's get to it!", playerName);
+
+        }//end greetuser ftn
+
     }//end program
 
+    
 
-     
 
 }//end namespace
 
-static void ShowAppInfo()
-{
-    //app vars init
-    String appName = "NumberGuesser"; //important to use double quotes
-    String appVers = "1.0.0";
-    String appAuthor = "Mike C";
 
-
-    // change text color
-    Console.ForegroundColor = ConsoleColor.Green;
-
-    Console.WriteLine("Application: {0}:\n Version {1} \n Author: {2}\n", appName, appVers, appAuthor);
-
-    // reset the text color after app info printed
-    Console.ResetColor();
-
-
-}
 
 
  

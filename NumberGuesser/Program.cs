@@ -11,7 +11,9 @@ namespace NumberGuesser
         {
             ShowAppInfo();
             GreetUser();
-
+            
+            // this while(true) exists to repeat the game after multiple wins if user wants to continue
+            // if the user enters "Q" during guesses, or "N"/"No" during replay prompt, this while(true) breaks 
             while (true)
             {
                 //init random object
@@ -25,39 +27,45 @@ namespace NumberGuesser
                 //Prompt user for entry
                 Console.WriteLine("\nGuess a number between 1 and 20 - \"Q\" to quit game: ");
 
-                //while 
+                //while user entry is NOT a matching integer to goalNum
                 while (guess != goalNum)
                 {
                     string playerGuess = Console.ReadLine();
 
+                    //if user wants to quit 
                     if (playerGuess.ToLower().StartsWith("Q".ToLower()))
                     {
                         //breaks from the game if user enters quit sentinel
                         break;
                     }
-
+                    //if user entry is passed 
                     else if (!int.TryParse(playerGuess, out guess))
                     {
                         //red warning message if user enters non integer or non-"Q"
                         PrintAlertMessage(ConsoleColor.Red, "Incorrect! Please try again");
-
                     }
-
+                    //if user does enter an int but that int doesnt match
                     else if (guess != goalNum)
                     {
                         //red warning message if user enters wrong integer 
                         PrintAlertMessage(ConsoleColor.Red, "Incorrect! Please try again");
                     }
-                }
+                    //else, the user has entered an int and it matches with the goalNum int
+                    else
+                    {
+                        //once the guess value has equalled the goalNum random num
+                        PrintAlertMessage(ConsoleColor.Green, "Correct! Well done friend");
+                    }
 
-                //once the while loop for guess != goalNum 
-                PrintAlertMessage(ConsoleColor.Green, "Correct! Well done friend");
+                }//end while loop 
 
-                //now, ask the user if they would like to play again
+                
+
+                //now, ask the user if they would like to play again - this is anchored in the while(true) loop at the top of main
                 Console.WriteLine("\n\t\tWould you like to play again?\n");
                 string replayResponse = Console.ReadLine();
 
-                if (replayResponse.ToLower().Contains("Yes".ToLower())
+                if (replayResponse.ToLower().Contains("YES".ToLower())
                     || replayResponse.ToLower().StartsWith("Y".ToLower()))
                 {
                     continue;
@@ -68,14 +76,29 @@ namespace NumberGuesser
                 {
                     return;
                 }
-                else
+                else 
                 {
-                    return;
-                }
+                    PrintAlertMessage(ConsoleColor.Yellow, "Invalid Entry. Would you like to play again? \n[Y]es or [N]o\n");
+                    replayResponse = Console.ReadLine();
+                    //reinitiates the prompt to ask if user wants to play again
+                    if (replayResponse.ToLower().Contains("YES".ToLower())
+                    || replayResponse.ToLower().StartsWith("Y".ToLower()))
+                    {
+                        continue;
+
+                    }
+                    else if (replayResponse.ToLower().Contains("NO".ToLower())
+                        || replayResponse.ToLower().StartsWith("N".ToLower()))
+                    {
+                        return;
+                    }
+
+                    else { return; }
+
+                }//end else block for initial replay prompt 
+
+
             }//end while true
-
-                
-
 
         }//end main
 
@@ -88,9 +111,7 @@ namespace NumberGuesser
             String appVers = "1.0.0";
             String appAuthor = "Mike C";
 
-
             PrintAlertMessage(ConsoleColor.DarkYellow, (appName + "\n" +appVers + " \nAuthor: " + appAuthor));
-
 
         }//end show app info ftn
 
@@ -105,7 +126,6 @@ namespace NumberGuesser
 
             PrintAlertMessage(ConsoleColor.Green, "Hello " +playerName +", let's guess a number!\n");
 
-
         }//end greetuser ftn
 
         static void PrintAlertMessage(ConsoleColor alertColor, string message)
@@ -119,9 +139,10 @@ namespace NumberGuesser
             Console.WriteLine(messageToPrint);
             //resets foreground color
             Console.ResetColor();
-        }
 
+        }//end PrintAlertMessage function
 
+      
 
     }//end program
 
